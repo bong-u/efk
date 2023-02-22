@@ -29,14 +29,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - type: bind
-        source: "${PWD}/fluentd/conf/fluent.conf"
-        target: /fluentd.conf
+        source: "${PWD}/fluentd/conf"
+        target: /fluentd/etc
         read_only: true
     ports:
       - "24224:24224"
       - "24224:24224/udp"
     depends_on:
       - elasticsearch
+    networks:
+      - efk
 
   kibana:
     build:
